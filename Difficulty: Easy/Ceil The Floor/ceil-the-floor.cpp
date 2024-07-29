@@ -12,36 +12,30 @@ class Solution {
   public:
     vector<int> getFloorAndCeil(int x, vector<int> &arr) {
         int n = arr.size();
-        int low = 0;
-        int high = n-1;
+    
+        // Sort the array to ensure it is in ascending order
+        sort(arr.begin(), arr.end());
+    
+        int low = 0, high = n - 1;
         int floor = -1, ceil = -1; 
-        vector<int> ans;
-        sort(arr.begin(),arr.end());
-        while(low<=high){
-            int mid =(low+high)/2;
-            if(arr[mid]<=x){
+    
+        // Single binary search pass to find both floor and ceiling
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (arr[mid] == x) {
                 floor = arr[mid];
-                low = mid+1;
-            }
-            else{
-                high = mid-1;
-            }
-            
-        }
-        int l = 0 , h = n-1;
-        while(l<=h){
-            int mid = (l+h)/2;
-            if(arr[mid]>=x){
-                ceil =arr[mid];
-                h = mid-1;
-            }
-            else{
-                l = mid+1;
+                ceil = arr[mid];
+                break;
+            } else if (arr[mid] < x) {
+                floor = arr[mid];
+                low = mid + 1;
+            } else {
+                ceil = arr[mid];
+                high = mid - 1;
             }
         }
-        ans.push_back(floor);
-        ans.push_back(ceil);
-        return ans;
+    
+        return {floor, ceil};
     }
 };
 
