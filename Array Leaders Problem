@@ -1,0 +1,28 @@
+Given an array arr of n positive integers, your task is to find all the leaders in the array. 
+An element of the array is considered a leader if it is greater than all the elements on its right 
+side or if it is equal to the maximum element on its right side. The rightmost element is always a leader.
+
+
+Code -
+
+class Solution {
+    // Function to find the leaders in the array.
+  public:
+    vector<int> leaders(int n, int arr[]) {
+        vector<int> temp;
+        int flag = 0;
+        for(int i=0;i<n-1;i++){
+            for(int j=i+1;j<n;j++){
+                if(arr[i]<arr[j]){
+                    flag = 0;
+                    break;
+                }
+                flag = 1;
+            }
+            if(flag == 1)
+            temp.push_back(arr[i]);
+        }
+        temp.push_back(arr[n-1]);
+        return temp;
+    }
+};
